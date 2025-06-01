@@ -1,0 +1,28 @@
+module mux2to1 (
+    input wire a,
+    input wire b,
+    input wire s,
+    output wire y
+);
+    assign y = (s == 0) ? a : b;
+endmodule
+
+module registered_mux2to1 (
+    input wire clk,
+    input wire reset,
+    input wire s,     
+    input wire c,     
+    output reg y  
+);
+    wire mux_out;
+
+    assign mux_out = (s == 0) ? c : y;
+
+    always @(posedge clk or posedge reset) begin
+        if (reset)
+            y <= 0;
+        else
+            y <= mux_out;
+    end
+endmodule
+
