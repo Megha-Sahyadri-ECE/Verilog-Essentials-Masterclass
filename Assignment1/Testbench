@@ -1,0 +1,35 @@
+// Code your testbench here
+// or browse Examples
+`timescale 1ns/1ps
+
+module mux4to1_tb;
+
+    reg [1:0] sel;
+    reg a, b, c, d;
+    wire y;
+
+    // Instantiate the design
+    mux4to1 uut (
+        .sel(sel),
+        .a(a),
+        .b(b),
+        .c(c),
+        .d(d),
+        .y(y)
+    );
+
+    initial begin
+        // Enable waveform dump
+        $dumpfile("waveform.vcd");
+        $dumpvars(0, mux4to1_tb);
+
+        // Apply test cases
+        sel = 2'b00; a = 1; b = 0; c = 0; d = 0; #10;
+        sel = 2'b01; a = 0; b = 1; c = 0; d = 0; #10;
+        sel = 2'b10; a = 0; b = 0; c = 1; d = 0; #10;
+        sel = 2'b11; a = 0; b = 0; c = 0; d = 1; #10;
+
+        $finish;
+    end
+
+endmodule
